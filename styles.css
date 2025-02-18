@@ -260,7 +260,7 @@ td:hover {
 
 /* Estilos para los botones secundarios */
 button {
-    background-color: #d41034; /* Rojo */
+    background-color: #aca0a4; /* Rojo */
     border-radius: 5px;
     color: white;
 }
@@ -273,7 +273,7 @@ button:hover {
 #content {
     margin: 20px;
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: #312c2c;
     border-radius: 10px;
     border: 1px solid #003b73;
 }
@@ -315,4 +315,7 @@ button:hover {
 #error-msg {
     color: red;
     font-size: 14px;
+}
+#tablaAsentamientos td {
+    color: black;
 }

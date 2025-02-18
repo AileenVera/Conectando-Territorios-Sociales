@@ -9253,11 +9253,9 @@ function cargarTablaAsentamientos() {
     datos.forEach((fila, index) => {
         let nuevaFila = tabla.insertRow();
         nuevaFila.innerHTML = `<td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.nombre}</td>
-                               <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.familias}</td>
-                               <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.territorios}</td>
-                               <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.comunidades}</td>
-                               <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.lider}</td>
-                               <td><button class="delete-btn" onclick="confirmarEliminarFila('${barrioSeleccionado}', ${index})">Eliminar</button></td>`; // Eliminar en la columna "Líder/Responsable del Asentamiento"
+                               <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.pueblosIndigenas}</td>
+                               <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.territoriosSociales}</td>
+                               <td><button class="delete-btn" onclick="confirmarEliminarFila('${barrioSeleccionado}', ${index})">Eliminar</button></td>`; // Eliminar en la columna "Acciones"
     });
 }
 
@@ -9270,10 +9268,8 @@ function guardarCambios(barrio) {
     for (let fila of tabla.rows) {
         datos.push({
             nombre: fila.cells[0].textContent,
-            familias: fila.cells[1].textContent,
-            territorios: fila.cells[2].textContent,
-            comunidades: fila.cells[3].textContent,
-            lider: fila.cells[4].textContent // Líder/Responsable del Asentamiento
+            pueblosIndigenas: fila.cells[1].textContent,
+            territoriosSociales: fila.cells[2].textContent,
         });
     }
 
@@ -9290,27 +9286,6 @@ function guardarCambios(barrio) {
     }
 }
 
-// Función para agregar un nuevo barrio
-function agregarBarrio() {
-    const departamentoSeleccionado = document.getElementById("departamento").value;
-    const distritoSeleccionado = document.getElementById("distrito").value;
-    const nuevoBarrio = prompt("Ingresa el nombre del nuevo barrio:");
-
-    if (nuevoBarrio) {
-        // Agregar el barrio a la estructura de datos
-        if (!data[departamentoSeleccionado].distritos[distritoSeleccionado].barrios) {
-            data[departamentoSeleccionado].distritos[distritoSeleccionado].barrios = {};
-        }
-        data[departamentoSeleccionado].distritos[distritoSeleccionado].barrios[nuevoBarrio] = [];
-
-        // Actualizar los dropdowns
-        cargarBarrios();
-        alert("Barrio agregado exitosamente.");
-    } else {
-        alert("El nombre del barrio no puede estar vacío.");
-    }
-}
-
 // Función para agregar nuevas filas a la tabla de asentamientos
 function agregarFilaAsentamiento() {
     const barrioSeleccionado = document.getElementById("barrio").value;
@@ -9319,9 +9294,7 @@ function agregarFilaAsentamiento() {
     nuevaFila.innerHTML = `<td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">Nuevo Asentamiento</td>
                            <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">0</td>
                            <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">0</td>
-                           <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">0</td>
-                           <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">Nuevo Líder/Responsable</td> <!-- Líder/Responsable -->
-                           <td><button class="delete-btn" onclick="confirmarEliminarFila('${barrioSeleccionado}', ${tabla.rows.length - 1})">Eliminar</button></td>`; // Eliminar en la columna "Líder/Responsable del Asentamiento"
+                           <td><button class="delete-btn" onclick="confirmarEliminarFila('${barrioSeleccionado}', ${tabla.rows.length - 1})">Eliminar</button></td>`; // Eliminar en la columna "Acciones"
     guardarCambios(barrioSeleccionado);  // Guardar los cambios después de agregar una nueva fila
 }
 
@@ -9385,6 +9358,7 @@ function logout() {
     localStorage.removeItem("loggedUser");
     location.reload();
 }
+
 
 
 
