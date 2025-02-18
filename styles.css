@@ -1,0 +1,51 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 10;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    white-space: normal;  /* Permite que el texto de las opciones se ajuste */
+    word-wrap: break-word;  /* Permite que el texto largo se divida si es necesario */
+}
+
+option {
+    white-space: normal;  /* Permite que el texto se ajuste dentro de las opciones */
+    word-wrap: break-word;  /* Asegura que el texto largo se divida si es necesario */
+}
+
+/* Mejorando la visualización de la tabla */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+

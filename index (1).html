@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Geográfico de Paraguay</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>ANDE - Conectando Territorios Sociales</h1>
+
+    <!-- Formulario de Inicio de Sesión -->
+    <div id="login-container">
+        <h2>Iniciar Sesión</h2>
+        <input type="text" id="username" placeholder="Usuario">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="login()">Ingresar</button>
+        <p id="error-msg" style="color: red;"></p>
+    </div>
+
+    <!-- Contenido protegido (Dropdowns y Tabla) -->
+    <div id="content" style="display: none;">
+        <button onclick="logout()">Cerrar Sesión</button>
+        <br><br>
+        <label for="departamento">Selecciona un Departamento:</label>
+        <select id="departamento" onchange="cargarDistritos()">
+            <option value="">Selecciona un departamento</option>
+        </select>
+
+        <label for="distrito">Selecciona un Distrito:</label>
+        <select id="distrito" onchange="cargarBarrios()" disabled>
+            <option value="">Selecciona un distrito</option>
+        </select>
+
+        <label for="barrio">Selecciona un Barrio:</label>
+        <select id="barrio" onchange="cargarTablaAsentamientos()" disabled>
+            <option value="">Selecciona un barrio</option>
+        </select>
+
+        <h2>Asentamientos del Barrio</h2>
+        <table border="1" id="tablaAsentamientos">
+            <thead>
+                <tr>
+                    <th>Nombre del Asentamiento</th>
+                    <th>Cantidad de Familias</th>
+                    <th>Territorios Sociales</th>
+                    <th>Comunidades Indígenas</th>
+                    <th>Líder/Responsable del Asentamiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button onclick="agregarFilaAsentamiento()">Agregar Asentamiento</button>
+        <br><br>
+        <button id="btnGuardar" onclick="guardarCambios()" disabled>Guardar</button> <!-- Botón para guardar -->
+        <button id="btnEditar" onclick="activarEdicion()" style="display: none;">Editar</button> <!-- Botón para editar -->
+        <br><br>
+        <!-- Botón para exportar a Excel -->
+        <button onclick="exportarAExcel()">Exportar a Excel</button>
+
+        <!-- Notificaciones para Andres Vera -->
+        <div id="notificaciones" style="display: none;">
+            <h2>Notificaciones</h2>
+            <ul id="listaNotificaciones"></ul>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const users = { "Andres Vera": "4108", "usuario": "abcde" };
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let errorMsg = document.getElementById("error-msg");
+
+            if (users[username] && users[username] === password) {
+                localStorage.setItem("loggedUser", username);
+                notificarAccion(username, "ha iniciado sesión");
+                mostrarContenido();
+            } else {
+                errorMsg.textContent = "Usuario o contraseña incorrectos";
+            }
+        }
+
+        function notificarAccion(usuario, mensaje) {
+            let notificaciones = JSON.parse(localStorage.getItem("notificaciones")) || [];
+            notificaciones.push(`${usuario} ${mensaje} - ${new Date().toLocaleString()}`);
+            localStorage.setItem("notificaciones", JSON.stringify(notificaciones));
+        }
+
+        function mostrarNotificaciones() {
+            if (localStorage.getItem("loggedUser") === "Andres Vera") {
+                document.getElementById("notificaciones").style.display = "block";
+                let lista = document.getElementById("listaNotificaciones");
+                lista.innerHTML = "";
+                let notificaciones = JSON.parse(localStorage.getItem("notificaciones")) || [];
+                notificaciones.forEach(noti => {
+                    let li = document.createElement("li");
+                    li.textContent = noti;
+                    lista.appendChild(li);
+                });
+            }
+        }
+
+        function agregarFilaAsentamiento() {
+            let usuario = localStorage.getItem("loggedUser");
+            notificarAccion(usuario, "ha agregado un nuevo asentamiento");
+        }
+
+        function guardarCambios() {
+            let usuario = localStorage.getItem("loggedUser");
+            notificarAccion(usuario, "ha realizado modificaciones");
+        }
+
+        function mostrarContenido() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("content").style.display = "block";
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedUser");
+            location.reload();
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem("loggedUser")) {
+                mostrarContenido();
+                mostrarNotificaciones();
+            }
+        };
+
+        // Funciones para manejar el contenido de los selectores y la tabla
+        function cargarDistritos() {
+            // Implementación de cargarDistritos()
+        }
+
+        function cargarBarrios() {
+            // Implementación de cargarBarrios()
+        }
+
+        function cargarTablaAsentamientos() {
+            // Implementación de cargarTablaAsentamientos()
+        }
+
+        function exportarAExcel() {
+            // Implementación de exportarAExcel()
+        }
+
+        function activarEdicion() {
+            // Activar edición de la tabla
+        }
+
+    </script>
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
