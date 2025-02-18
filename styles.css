@@ -49,3 +49,270 @@ th {
     background-color: #f0f0f0;
 }
 
+/* Configuración general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fondo general de la página */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #006747, #00562b); /* Gradiente de verde ANDE */
+    background-size: cover;
+    color: #fff;
+    padding: 20px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Acceso_principal_ANDE_-_panoramio.jpg/1200px-Acceso_principal_ANDE_-_panoramio.jpg'); /* Imagen de fondo */
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Encabezado */
+h1 {
+    text-align: center;
+    font-size: 36px;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Formulario de inicio de sesión */
+#login-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con opacidad */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#login-container:hover {
+    transform: scale(1.05);
+}
+
+#login-container h2 {
+    color: #006747;
+    margin-bottom: 20px;
+}
+
+#login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+#login-container input:focus {
+    border: 2px solid #006747;
+}
+
+#login-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #006747;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#login-container button:hover {
+    background-color: #004d36;
+}
+
+#error-msg {
+    color: red;
+    font-size: 14px;
+}
+
+/* Contenido después del inicio de sesión */
+#content {
+    margin-top: 40px;
+    color: white;
+}
+
+#content h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los selectores */
+select {
+    width: 220px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+select:focus {
+    border: 2px solid #006747;
+}
+
+/* Tabla de asentamientos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo con opacidad */
+    border-radius: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px s
+}
+/* Fondo de la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* Blanco */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Encabezado */
+h1 {
+    text-align: center;
+    color: #f0f0f0; /* Azul de la ANDE */
+    background-color: #d41034; /* Rojo de la ANDE */
+    padding: 20px;
+    margin: 0;
+}
+
+/* Contenedor del formulario de login */
+#login-container {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid #003b73;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+#login-container h2 {
+    color: #003b73; /* Azul */
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Botón de ingreso */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #003b73; /* Azul */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #d41034; /* Rojo */
+}
+
+/* Estilos para la tabla de asentamientos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #003b73; /* Azul */
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+}
+
+td:hover {
+    background-color: #e0e0e0;
+}
+
+/* Estilos para los botones secundarios */
+button {
+    background-color: #d41034; /* Rojo */
+    border-radius: 5px;
+    color: white;
+}
+
+button:hover {
+    background-color: #003b73; /* Azul */
+}
+
+/* Contenedor para el contenido después de login */
+#content {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    border: 1px solid #003b73;
+}
+
+#content select,
+#content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #003b73;
+    border-radius: 5px;
+}
+
+#content button {
+    width: auto;
+    background-color: #003b73; /* Azul */
+    color: white;
+}
+
+/* Estilo para el área de notificaciones */
+#notificaciones {
+    background-color: #003b73;
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#notificaciones ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#notificaciones li {
+    margin: 5px 0;
+}
+
+/* Estilo para los mensajes de error */
+#error-msg {
+    color: red;
+    font-size: 14px;
+}

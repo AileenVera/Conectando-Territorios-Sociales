@@ -9173,7 +9173,6 @@ let data = {
     
    
 ;
-
 window.onload = function () {
     const departamentoSelect = document.getElementById("departamento");
 
@@ -9258,7 +9257,7 @@ function cargarTablaAsentamientos() {
                                <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.territorios}</td>
                                <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.comunidades}</td>
                                <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">${fila.lider}</td>
-                               <td><button onclick="confirmarEliminarFila('${barrioSeleccionado}', ${index})">Eliminar</button></td>`; // Eliminar en la columna "Líder/Responsable del Asentamiento"
+                               <td><button class="delete-btn" onclick="confirmarEliminarFila('${barrioSeleccionado}', ${index})">Eliminar</button></td>`; // Eliminar en la columna "Líder/Responsable del Asentamiento"
     });
 }
 
@@ -9322,7 +9321,7 @@ function agregarFilaAsentamiento() {
                            <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">0</td>
                            <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">0</td>
                            <td contenteditable="true" oninput="guardarCambios('${barrioSeleccionado}')">Nuevo Líder/Responsable</td> <!-- Líder/Responsable -->
-                           <td><button onclick="confirmarEliminarFila('${barrioSeleccionado}', ${tabla.rows.length - 1})">Eliminar</button></td>`; // Eliminar en la columna "Líder/Responsable del Asentamiento"
+                           <td><button class="delete-btn" onclick="confirmarEliminarFila('${barrioSeleccionado}', ${tabla.rows.length - 1})">Eliminar</button></td>`; // Eliminar en la columna "Líder/Responsable del Asentamiento"
     guardarCambios(barrioSeleccionado);  // Guardar los cambios después de agregar una nueva fila
 }
 
@@ -9386,7 +9385,6 @@ function logout() {
     localStorage.removeItem("loggedUser");
     location.reload();
 }
-
 
 
 
