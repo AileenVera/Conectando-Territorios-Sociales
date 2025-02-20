@@ -319,3 +319,57 @@ button:hover {
 #tablaAsentamientos td {
     color: black;
 }
+/* Estilos para la tabla de asentamientos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo más claro para mejor contraste */
+    border-radius: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+th {
+    background-color: #003b73; /* Azul */
+    color: white;
+}
+
+td {
+    background-color: #f9f9f9;
+    color: black; /* Aseguramos que el texto sea negro para visibilidad */
+}
+
+td:hover {
+    background-color: #e0e0e0;
+}
+
+#tablaAsentamientos td {
+    color: black; /* Aseguramos que el texto de la tabla sea visible */
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff; /* Blanco */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Fondo de la página */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #006747, #00562b); /* Gradiente de verde ANDE */
+    background-size: cover;
+    color: #fff;
+    padding: 20px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Acceso_principal_ANDE_-_panoramio.jpg/1200px-Acceso_principal_ANDE_-_panoramio.jpg');
+    background-position: center;
+    background-attachment: fixed;
+}
