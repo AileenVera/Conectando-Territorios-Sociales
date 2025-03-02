@@ -37,9 +37,18 @@
         </select>
 
         <label for="barrio">Selecciona un Barrio:</label>
-        <select id="barrio" onchange="mostrarTablas()">
+        <select id="barrio" onchange="habilitarOpciones()">
             <option value="">Selecciona un barrio</option>
             <!-- Las opciones de barrios se llenarán con JavaScript -->
+        </select>
+
+        <!-- Selección de tipo de datos -->
+        <label for="tipo">Selecciona el tipo de datos:</label>
+        <select id="tipo" onchange="mostrarTablasSeleccionadas()" disabled>
+            <option value="">Selecciona un tipo</option>
+            <option value="asentamientos">Asentamientos</option>
+            <option value="pueblos">Pueblos Indígenas</option>
+            <option value="territorios">Territorios Sociales</option>
         </select>
 
         <!-- Contenedor de la tabla de Asentamientos -->
@@ -89,12 +98,15 @@
             <table border="1" id="tablaTerritorios">
                 <thead>
                     <tr>
-                        <th>Nombre del Territorio</th>
-                        <th>Ubicación Geográfica</th>
-                        <th>Tipo de Territorio</th>
-                        <th>Población Estimada</th>
-                        <th>Acceso a Servicios Básicos</th>
-                        <th>Características Socioeconómicas</th>
+                        <th>Distrito</th>
+                        <th>Exp. Nro.</th>
+                        <th>Localización</th>
+                        <th>Cant. Flias</th>
+                        <th>Lin. M.T</th>
+                        <th>Lin. B.T</th>
+                        <th>P.D.</th>
+                        <th>Potencia</th>
+                        <th>A.P.</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -160,14 +172,38 @@
             }
         }
 
-        // Mostrar las tablas cuando un barrio es seleccionado
-        function mostrarTablas() {
+        // Habilitar opciones de tipo solo si hay un barrio seleccionado
+        function habilitarOpciones() {
             const barrioSeleccionado = document.getElementById("barrio").value;
+            const tipoSelect = document.getElementById("tipo");
+
             if (barrioSeleccionado) {
+                tipoSelect.disabled = false;
+            } else {
+                tipoSelect.disabled = true;
+            }
+        }
+
+        // Mostrar las tablas correspondientes al seleccionar un tipo
+        function mostrarTablasSeleccionadas() {
+            const tipoSeleccionado = document.getElementById("tipo").value;
+            const tablas = ["tablaAsentamientosContainer", "tablaPueblosContainer", "tablaTerritoriosContainer"];
+
+            // Ocultar todas las tablas
+            tablas.forEach(tabla => {
+                document.getElementById(tabla).style.display = "none";
+            });
+
+            // Mostrar la tabla correspondiente según el tipo seleccionado
+            if (tipoSeleccionado === "asentamientos") {
                 document.getElementById("tablaAsentamientosContainer").style.display = "block";
+                cargarTabla("tablaAsentamientos");
+            } else if (tipoSeleccionado === "pueblos") {
                 document.getElementById("tablaPueblosContainer").style.display = "block";
+                cargarTabla("tablaPueblos");
+            } else if (tipoSeleccionado === "territorios") {
                 document.getElementById("tablaTerritoriosContainer").style.display = "block";
-                cargarDatosGuardados(barrioSeleccionado);
+                cargarTabla("tablaTerritorios");
             }
         }
 
@@ -175,13 +211,22 @@
         function agregarFila(tablaId) {
             const tabla = document.getElementById(tablaId);
             const nuevaFila = tabla.insertRow();
-            for (let i = 0; i < 6; i++) {
+            let numCeldas = 0;
+
+            // Definir el número de celdas según el tipo de tabla
+            if (tablaId === "tablaAsentamientos") numCeldas = 5; // Asentamientos
+            else if (tablaId === "tablaPueblos") numCeldas = 6; // Pueblos Indígenas
+            else if (tablaId === "tablaTerritorios") numCeldas = 6; // Territorios Sociales
+
+            // Crear celdas con inputs
+            for (let i = 0; i < numCeldas; i++) {
                 let celda = nuevaFila.insertCell(i);
                 let input = document.createElement("input");
                 input.type = "text";
                 celda.appendChild(input);
             }
         }
+        
 
         // Guardar datos de la tabla en el localStorage
         function guardarTabla(tablaId) {
@@ -190,46 +235,53 @@
             const filas = tabla.getElementsByTagName("tr");
             let datos = [];
 
-            for (let i = 1; i < filas.length; i++) {  // Ignorar el encabezado
+            // Recorre todas las filas de la tabla (empezando desde la segunda fila para saltarse el encabezado)
+            for (let i = 1; i < filas.length; i++) {
                 const celdas = filas[i].getElementsByTagName("td");
                 let filaDatos = [];
+
+                // Recorre todas las celdas y guarda los valores de los inputs
                 for (let j = 0; j < celdas.length; j++) {
                     filaDatos.push(celdas[j].getElementsByTagName("input")[0].value);
                 }
+
+                // Agrega la fila con los datos a la lista
                 datos.push(filaDatos);
             }
 
+            // Obtener los datos almacenados previamente, si existen
             let storedData = JSON.parse(localStorage.getItem(barrio)) || {};
+
+            // Almacenar los datos de la tabla con el id correspondiente
             storedData[tablaId] = datos;
+
+            // Guardar los datos actualizados en localStorage
             localStorage.setItem(barrio, JSON.stringify(storedData));
 
+            // Mostrar mensaje de confirmación
             alert("Datos guardados para el barrio " + barrio);
         }
 
-        // Cargar los datos guardados en las tablas
-        function cargarDatosGuardados(barrio) {
-            let storedData = JSON.parse(localStorage.getItem(barrio)) || {};
+        // Cargar los datos guardados en las tablas al seleccionar el barrio
+        function cargarTabla(tablaId) {
+            const barrio = document.getElementById("barrio").value;
+            const storedData = JSON.parse(localStorage.getItem(barrio));
 
-            if (storedData["tablaAsentamientos"]) {
-                const tabla = document.getElementById("tablaAsentamientos");
-                storedData["tablaAsentamientos"].forEach(fila => {
-                    const nuevaFila = tabla.insertRow();
-                    fila.forEach(dato => {
-                        let celda = nuevaFila.insertCell();
-                        let input = document.createElement("input");
-                        input.type = "text";
-                        input.value = dato;
-                        celda.appendChild(input);
+            if (storedData && storedData[tablaId]) {
+                const tabla = document.getElementById(tablaId);
+                const datos = storedData[tablaId];
+                const tbody = tabla.getElementsByTagName("tbody")[0];
+                tbody.innerHTML = '';  // Limpiar las filas existentes
+
+                // Cargar las filas guardadas en la tabla
+                datos.forEach(fila => {
+                    const nuevaFila = tbody.insertRow();
+                    fila.forEach(celda => {
+                        const nuevaCelda = nuevaFila.insertCell();
+                        nuevaCelda.innerHTML = `<input type="text" value="${celda}">`;
                     });
                 });
             }
-        }
-
-        // Exportar la tabla a Excel
-        function exportarExcel(tablaId) {
-            const tabla = document.getElementById(tablaId);
-            const wb = XLSX.utils.table_to_book(tabla);
-            XLSX.writeFile(wb, `${tablaId}.xlsx`);
         }
 
         // Función de inicio de sesión
@@ -254,6 +306,83 @@
             localStorage.removeItem("loggedUser");
             location.reload();
         }
+// Función para agregar una fila a una tabla
+function agregarFila(tablaId) {
+    const tabla = document.getElementById(tablaId);
+    const nuevaFila = tabla.insertRow();
+    let numCeldas = 0;
+
+    // Definir el número de celdas según el tipo de tabla
+    if (tablaId === "tablaAsentamientos") numCeldas = 5; // Asentamientos
+    else if (tablaId === "tablaPueblos") numCeldas = 6; // Pueblos Indígenas
+    else if (tablaId === "tablaTerritorios") numCeldas = 9; // Territorios Sociales (ajustado a 9 celdas)
+
+    // Crear celdas con inputs
+    for (let i = 0; i < numCeldas; i++) {
+        let celda = nuevaFila.insertCell(i);
+        let input = document.createElement("input");
+        input.type = "text";
+        input.value = ""; // Asegura que los campos sean vacíos
+        celda.appendChild(input);
+    }
+}
+
+// Guardar datos de la tabla en el localStorage
+function guardarTabla(tablaId) {
+    const barrio = document.getElementById("barrio").value;
+    const tabla = document.getElementById(tablaId);
+    const filas = tabla.getElementsByTagName("tr");
+    let datos = [];
+
+    // Recorre todas las filas de la tabla (empezando desde la segunda fila para saltarse el encabezado)
+    for (let i = 1; i < filas.length; i++) {
+        const celdas = filas[i].getElementsByTagName("td");
+        let filaDatos = [];
+
+        // Recorre todas las celdas y guarda los valores de los inputs
+        for (let j = 0; j < celdas.length; j++) {
+            filaDatos.push(celdas[j].getElementsByTagName("input")[0].value);
+        }
+
+        // Agrega la fila con los datos a la lista
+        datos.push(filaDatos);
+    }
+
+    // Obtener los datos almacenados previamente, si existen
+    let storedData = JSON.parse(localStorage.getItem(barrio)) || {};
+
+    // Almacenar los datos de la tabla con el id correspondiente
+    storedData[tablaId] = datos;
+
+    // Guardar los datos actualizados en localStorage
+    localStorage.setItem(barrio, JSON.stringify(storedData));
+
+    // Mostrar mensaje de confirmación
+    alert("Datos guardados para el barrio " + barrio);
+}
+
+// Cargar los datos guardados en las tablas al seleccionar el barrio
+function cargarTabla(tablaId) {
+    const barrio = document.getElementById("barrio").value;
+    const storedData = JSON.parse(localStorage.getItem(barrio));
+
+    if (storedData && storedData[tablaId]) {
+        const tabla = document.getElementById(tablaId);
+        const datos = storedData[tablaId];
+        const tbody = tabla.getElementsByTagName("tbody")[0];
+        tbody.innerHTML = '';  // Limpiar las filas existentes
+
+        // Cargar las filas guardadas en la tabla
+        datos.forEach(fila => {
+            const nuevaFila = tbody.insertRow();
+            fila.forEach(celda => {
+                const nuevaCelda = nuevaFila.insertCell();
+                nuevaCelda.innerHTML = `<input type="text" value="${celda}">`;
+            });
+        });
+    }
+}
+
     </script>
 <script src="script.js"></script>
 
